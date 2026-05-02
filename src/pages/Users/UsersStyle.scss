@@ -1,0 +1,589 @@
+.users-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #0d0d1a 50%, #0a0a1a 100%);
+    padding: 100px 20px 60px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+// Фоновые ауры
+.auras {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    
+    .aura {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.3;
+        animation: float 20s infinite ease-in-out;
+        
+        &.aura-1 {
+            width: 500px;
+            height: 500px;
+            background: #ff3366;
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+        
+        &.aura-2 {
+            width: 600px;
+            height: 600px;
+            background: #ff8c42;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+        
+        &.aura-3 {
+            width: 400px;
+            height: 400px;
+            background: #4facfe;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-50px, 50px) scale(0.9); }
+}
+
+.users-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+// Заголовок
+.users-header {
+    text-align: center;
+    margin-bottom: 50px;
+    
+    .glow-text {
+        position: relative;
+        
+        h1 {
+            font-size: 56px;
+            background: linear-gradient(135deg, #fff, #ff8c42, #ff3366, #ff8c42);
+            background-size: 300% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            animation: gradientShift 3s ease infinite;
+            
+            @media (max-width: 768px) {
+                font-size: 36px;
+            }
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            
+            .stat-badge {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                padding: 8px 20px;
+                border-radius: 40px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 14px;
+                
+                &:hover {
+                    border-color: #ff3366;
+                    transform: translateY(-2px);
+                    transition: all 0.3s ease;
+                }
+            }
+        }
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+// Управление
+.users-controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    
+    @media (max-width: 550px) {
+        flex-direction: column;
+    }
+    
+    .search-box, .sort-box {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 60px;
+        padding: 5px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        
+        .search-icon, .sort-icon {
+            font-size: 20px;
+            margin-right: 10px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        input, select {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 15px 0;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            
+            option {
+                background: #1a1a2e;
+                color: white;
+            }
+        }
+        
+        .clear-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: #ff3366;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Эффект свечения при наведении
+.glow-on-hover {
+    transition: all 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0 0 25px rgba(255, 51, 102, 0.4);
+        border-color: rgba(255, 51, 102, 0.6);
+    }
+}
+
+// Сетка пользователей
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+// Карточка пользователя с аурой
+.user-card {
+    background: rgba(10, 10, 26, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, var(--aura-color), transparent);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+    }
+    
+    &:hover::before {
+        opacity: 0.15;
+    }
+    
+    &:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(255, 51, 102, 0.5);
+    }
+    
+    &.selected {
+        border-color: #ff3366;
+        box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
+    }
+    
+    .card-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    &:hover .card-glow {
+        left: 100%;
+    }
+    
+    .user-rank {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        filter: drop-shadow(0 0 5px rgba(255, 51, 102, 0.5));
+    }
+    
+    .user-avatar {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+        
+        img, .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 51, 102, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .avatar-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .avatar-aura {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--aura-color), transparent);
+            opacity: 0;
+            animation: pulseAura 2s infinite;
+        }
+    }
+    
+    &:hover .avatar-aura {
+        opacity: 0.5;
+    }
+    
+    .user-info {
+        text-align: center;
+        
+        .user-name {
+            color: white;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #ff8c42);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .user-stats {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 12px;
+            
+            .stat {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 5px 12px;
+                border-radius: 20px;
+                
+                .stat-icon {
+                    font-size: 14px;
+                }
+                
+                .stat-value {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+        }
+        
+        .user-date {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+        }
+    }
+    
+    .card-energy {
+        margin-top: 15px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        
+        .energy-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3366, #ff8c42);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+    }
+}
+
+@keyframes pulseAura {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(1.1); }
+}
+
+// Топ пользователей
+.top-users {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    .top-header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        
+        h3 {
+            color: white;
+            font-size: 28px;
+            background: linear-gradient(135deg, #ffd700, #ff8c42);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .top-decoration {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            margin: 10px auto 0;
+        }
+    }
+    
+    .top-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        
+        .top-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            
+            &:hover {
+                transform: translateX(10px);
+                background: rgba(255, 255, 255, 0.08);
+            }
+            
+            .top-rank {
+                font-size: 28px;
+                min-width: 60px;
+            }
+            
+            .top-avatar {
+                width: 45px;
+                height: 45px;
+                
+                img, .top-avatar-placeholder {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+                
+                .top-avatar-placeholder {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #ff3366, #ff8c42);
+                    color: white;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+            }
+            
+            .top-name {
+                flex: 1;
+                color: white;
+                font-weight: 500;
+                font-size: 18px;
+            }
+            
+            .top-balance {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: #ffd700;
+                font-weight: bold;
+                font-size: 18px;
+                min-width: 100px;
+            }
+            
+            .top-power {
+                width: 150px;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 3px;
+                overflow: hidden;
+                
+                .power-bar {
+                    height: 100%;
+                    background: linear-gradient(90deg, #ffd700, #ff8c42);
+                    border-radius: 3px;
+                }
+            }
+        }
+    }
+}
+
+// Загрузка
+.loading {
+    text-align: center;
+    padding: 80px;
+    
+    .cosmic-loader {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 30px;
+        
+        .moon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ffd700;
+        }
+        
+        .orbit {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-top-color: #ff3366;
+            animation: orbit 1s linear infinite;
+        }
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+@keyframes orbit {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Нет результатов
+.no-results {
+    text-align: center;
+    padding: 80px;
+    
+    .no-results-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        animation: floatIcon 3s ease-in-out infinite;
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 18px;
+    }
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+// Адаптив
+@media (max-width: 768px) {
+    .users-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .top-item {
+        flex-wrap: wrap;
+        
+        .top-power {
+            width: 100% !important;
+            margin-top: 10px;
+        }
+    }
+    
+    .user-stats {
+        flex-wrap: wrap;
+        gap: 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .users-header h1 {
+        font-size: 28px;
+    }
+    
+    .user-card {
+        padding: 20px;
+    }
+    
+    .top-rank {
+        font-size: 20px !important;
+        min-width: 40px !important;
+    }
+}

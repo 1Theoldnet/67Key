@@ -1,0 +1,605 @@
+.case-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.case-container {
+    max-width: 550px;
+    width: 100%;
+    text-align: center;
+}
+
+// Баланс
+.balance-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 60px;
+    padding: 15px 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    .balance-icon {
+        font-size: 28px;
+    }
+    
+    .balance-value {
+        font-size: 36px;
+        font-weight: bold;
+        color: #ff8c42;
+    }
+    
+    .balance-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 16px;
+    }
+}
+
+// Игровой автомат
+.slot-machine {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    border-radius: 40px;
+    padding: 40px;
+    margin-bottom: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.slot-window {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.slot-symbol {
+    font-size: 120px;
+    text-align: center;
+    transition: all 0.3s ease;
+    
+    &.winner {
+        animation: winPulse 0.5s ease-in-out;
+    }
+    
+    &.bomb {
+        animation: bombShake 0.5s ease-in-out;
+    }
+}
+
+@keyframes winPulse {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 0 transparent; }
+    50% { transform: scale(1.2); text-shadow: 0 0 30px gold; }
+}
+
+@keyframes bombShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+// Результат
+.result {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    animation: slideUp 0.3s ease;
+    
+    &.win {
+        background: rgba(76, 175, 80, 0.2);
+        border: 1px solid rgba(76, 175, 80, 0.5);
+        
+        .win-message {
+            color: #81c784;
+        }
+    }
+    
+    &.bomb-result {
+        background: rgba(244, 67, 54, 0.2);
+        border: 1px solid rgba(244, 67, 54, 0.5);
+        
+        .bomb-message {
+            color: #ff8a80;
+        }
+    }
+    
+    &.lose {
+        background: rgba(255, 51, 102, 0.2);
+        border: 1px solid rgba(255, 51, 102, 0.5);
+        
+        .lose-message {
+            color: #ff88aa;
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Кнопка
+.spin-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #ff3366, #ff8c42);
+    border: none;
+    border-radius: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 40px;
+    
+    &:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
+    }
+    
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Таблица выигрышей
+.wins-table {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 20px;
+    
+    h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+    
+    .wins-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 15px;
+        
+        .win-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            &.bomb-item {
+                background: rgba(244, 67, 54, 0.2);
+                border: 1px solid rgba(244, 67, 54, 0.3);
+            }
+            
+            .win-symbol {
+                font-size: 28px;
+            }
+            
+            .win-info {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+                
+                .win-amount {
+                    font-weight: bold;
+                    font-size: 14px;
+                    color: #ff8c42;
+                    
+                    &.bomb-amount {
+                        color: #ff5252;
+                    }
+                }
+                
+                .win-chance {
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.6);
+                    background: rgba(0, 0, 0, 0.3);
+                    padding: 2px 8px;
+                    border-radius: 20px;
+                }
+            }
+        }
+    }
+    
+    .info-text {
+        text-align: center;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        
+        p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            margin: 5px 0;
+        }
+    }
+}
+
+// Адаптив
+@media (max-width: 550px) {
+    .slot-symbol {
+        font-size: 80px;
+    }
+    
+    .slot-machine {
+        padding: 25px;
+    }
+    
+    .slot-window {
+        padding: 25px;
+    }
+    
+    .spin-btn {
+        font-size: 16px;
+        padding: 15px;
+    }
+    
+    .win-symbol {
+        font-size: 22px !important;
+    }
+    
+    .win-info {
+        gap: 10px !important;
+    }
+}
+
+// Добавьте эти стили к существующим
+
+// Выбор ставки
+.bet-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    
+    .bet-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    
+    .bet-selector {
+        position: relative;
+        
+        .bet-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff3366, #ff8c42);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                transform: scale(1.02);
+                box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            }
+        }
+        
+        .bet-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(18, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            margin-top: 5px;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            
+            .bet-option {
+                width: 100%;
+                padding: 12px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                
+                &:hover {
+                    background: rgba(255, 51, 102, 0.3);
+                }
+                
+                &.active {
+                    background: linear-gradient(135deg, #ff3366, #ff8c42);
+                }
+            }
+        }
+    }
+}
+
+// Выбор множителя
+.multiplier-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    
+    .multiplier-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    
+    .multiplier-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        
+        @media (max-width: 550px) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+        
+        .multiplier-btn {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                background: rgba(255, 51, 102, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            &.active {
+                background: linear-gradient(135deg, #ff3366, #ff8c42);
+                border-color: transparent;
+                box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+            }
+        }
+    }
+}
+
+// Общая ставка
+.total-bet {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(255, 140, 66, 0.2));
+    border-radius: 16px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 51, 102, 0.3);
+    
+    span:first-child {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+    
+    .total-amount {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff8c42;
+        text-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+    }
+}
+
+// Адаптация существующих стилей
+.case-container {
+    max-width: 550px;
+    width: 100%;
+}
+
+.balance-card {
+    margin-bottom: 25px;
+}
+
+.win-chance {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+// Секция со ставкой
+.bet-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    
+    .section-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    
+    .bet-input-wrapper {
+        position: relative;
+        margin-bottom: 15px;
+        
+        .bet-input {
+            width: 426px;
+            padding: 15px 60px 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff8c42;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            
+            &:focus {
+                border-color: #ff3366;
+                box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
+            }
+            
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+                opacity: 0.5;
+            }
+        }
+    }
+    
+    .quick-bets {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        
+        .quick-bet-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                background: rgba(255, 51, 102, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            &.active {
+                background: linear-gradient(135deg, #ff3366, #ff8c42);
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+// Секция множителя
+.multiplier-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    
+    .section-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    
+    .multiplier-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        
+        .multiplier-btn {
+            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                background: rgba(255, 51, 102, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            &.active {
+                background: linear-gradient(135deg, #ff3366, #ff8c42);
+                border-color: transparent;
+                box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+            }
+        }
+    }
+}
+
+// Общая ставка
+.total-bet {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.2), rgba(255, 140, 66, 0.2));
+    border-radius: 16px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 51, 102, 0.3);
+    
+    span:first-child {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+    
+    .total-amount {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff8c42;
+        text-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+    }
+}
+
+// Предупреждение
+.warning-message {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid rgba(244, 67, 54, 0.5);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ff8a80;
+    font-size: 14px;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+// Адаптация под мобильные
+@media (max-width: 550px) {
+    .quick-bets {
+        justify-content: center;
+    }
+    
+    .multiplier-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        
+        .multiplier-btn {
+            padding: 8px 4px !important;
+            font-size: 12px !important;
+        }
+    }
+    
+    .total-amount {
+        font-size: 22px !important;
+    }
+}

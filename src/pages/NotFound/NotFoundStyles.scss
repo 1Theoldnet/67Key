@@ -1,0 +1,260 @@
+.notfound-page {
+    width: 100%;
+    height: 100vh;
+    background-image: url('https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/73/6f/f1/736ff1a8-238f-c1b4-087a-5be9921436ed/052599849706.png/600x600cc.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+
+    // Эффектный оверлей с градиентом
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 30% 20%, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+        backdrop-filter: blur(5px);
+        z-index: 0;
+    }
+
+    // Анимированные парящие частицы (дополнительный вайб)
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 40%, rgba(255,255,255,0.05) 1px, transparent 1px),
+            radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04) 1px, transparent 1px);
+        background-size: 50px 50px, 80px 80px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    // Основной контент
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        padding: 50px 45px;
+        background: rgba(18, 22, 40, 0.55);
+        backdrop-filter: blur(20px);
+        border-radius: 60px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+            0 25px 45px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 30px rgba(255, 51, 102, 0.15);
+        width: 550px;
+        max-width: 90vw;
+        z-index: 2;
+        text-align: center;
+        animation: scaleUp 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            background: rgba(18, 22, 40, 0.65);
+            backdrop-filter: blur(24px);
+            border-color: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+    }
+
+    // Космическая иконка
+    .error-icon {
+        font-size: 90px;
+        filter: drop-shadow(0 0 20px rgba(255, 51, 102, 0.6));
+        animation: floatIcon 3s ease-in-out infinite;
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+    }
+
+    // Заголовок
+    h1 {
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(120deg, #ffffff, #ffb6c1, #ff8c42);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        margin: 0;
+        letter-spacing: -1px;
+        animation: titleShine 4s linear infinite;
+
+        @keyframes titleShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+    }
+
+    // Текст описания
+    p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+        font-weight: 400;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    // Стиль для кнопок (ваш оригинальный стиль расширен)
+    button {
+        padding: 15px 32px;
+        background: rgba(255, 51, 102, 0.25);
+        backdrop-filter: blur(18px);
+        border-radius: 60px;
+        outline: none;
+        font-size: 18px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        font-family: inherit;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        max-width: 280px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        &:hover {
+            background: rgba(255, 51, 102, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 51, 102, 0.5);
+            border-color: #ff3366;
+
+            &::before {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        &:active {
+            transform: translateY(2px);
+        }
+    }
+
+    // Вторичная кнопка (Назад)
+    .secondary-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.4);
+        margin-top: 5px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+    }
+
+    // Анимация для бейджа
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    // Адаптив для мобильных устройств
+    @media (max-width: 600px) {
+        .glass-badge-404 {
+            top: 20px;
+            right: 20px;
+            padding: 6px 18px;
+
+            b {
+                font-size: 50px;
+            }
+            span {
+                font-size: 10px;
+            }
+        }
+
+        .content {
+            padding: 35px 25px;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        .error-icon {
+            font-size: 65px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            max-width: 240px;
+        }
+    }
+
+    // Для совсем маленьких экранов
+    @media (max-width: 450px) {
+        .content {
+            padding: 28px 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .glass-badge-404 {
+            top: 15px;
+            right: 15px;
+            
+            b {
+                font-size: 40px;
+            }
+        }
+    }
+
+    // Убираем дефолтные стили для автозаполнения
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus {
+        transition: background-color 0s 600000s, color 0s 600000s;
+    }
+}
