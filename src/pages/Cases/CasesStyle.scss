@@ -1,0 +1,618 @@
+.cases-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #0d0d1a 50%, #0a0a1a 100%);
+    padding: 100px 20px 60px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+// Фоновые ауры
+.auras {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    
+    .aura {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.3;
+        animation: float 20s infinite ease-in-out;
+        
+        &.aura-1 {
+            width: 500px;
+            height: 500px;
+            background: #ff3366;
+            top: -200px;
+            left: -200px;
+        }
+        
+        &.aura-2 {
+            width: 600px;
+            height: 600px;
+            background: #ff8c42;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+        
+        &.aura-3 {
+            width: 400px;
+            height: 400px;
+            background: #4facfe;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+        
+        &.aura-4 {
+            width: 350px;
+            height: 350px;
+            background: #00d2ff;
+            top: 70%;
+            left: 20%;
+            animation-delay: -15s;
+        }
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-50px, 50px) scale(0.9); }
+}
+
+.cases-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+// Заголовок
+.cases-header {
+    text-align: center;
+    margin-bottom: 40px;
+    
+    .glow-text {
+        h1 {
+            font-size: 52px;
+            background: linear-gradient(135deg, #fff, #ff8c42, #ff3366);
+            background-size: 300% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            animation: gradientShift 3s ease infinite;
+            
+            @media (max-width: 550px) {
+                font-size: 36px;
+            }
+        }
+        
+        p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+// Стеклянная карточка
+.glass-card {
+    background: rgba(18, 22, 40, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        border-color: rgba(255, 51, 102, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+}
+
+// Баланс
+.balance-card {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.15), rgba(255, 140, 66, 0.15));
+    backdrop-filter: blur(12px);
+    border-radius: 80px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 51, 102, 0.3);
+    
+    .balance-glow {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 51, 102, 0.2), transparent);
+        animation: rotate 10s linear infinite;
+    }
+    
+    .balance-icon {
+        font-size: 28px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .balance-value {
+        font-size: 36px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .balance-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 16px;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+// Результат открытия
+.result-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: popIn 0.5s ease-out;
+    
+    .result-content {
+        text-align: center;
+        padding: 40px;
+        border-radius: 28px;
+        position: relative;
+        overflow: hidden;
+        
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h3 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .result-item {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .result-win {
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .result-rarity {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        &.common { background: linear-gradient(135deg, #4caf50, #2e7d32); }
+        &.rare { background: linear-gradient(135deg, #2196f3, #0d47a1); }
+        &.epic { background: linear-gradient(135deg, #9c27b0, #4a148c); }
+        &.legendary { background: linear-gradient(135deg, #ff9800, #e65100); }
+    }
+    
+    &.rarity-ultra {
+        .result-content {
+            background: linear-gradient(135deg, #001a2a, #002040);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            
+            &::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(135deg, #00d2ff, #3a7bd5, #00d2ff);
+                border-radius: 30px;
+                z-index: -1;
+                animation: borderPulse 2s infinite;
+            }
+            
+            .ultra-aura {
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(0, 210, 255, 0.3), transparent);
+                animation: ultraRotate 4s linear infinite;
+                pointer-events: none;
+            }
+            
+            .result-rarity {
+                font-size: 18px;
+                font-weight: bold;
+                background: linear-gradient(135deg, #00d2ff, #3a7bd5, #00d2ff);
+                background-size: 200% auto;
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                animation: ultraShine 2s linear infinite;
+            }
+            
+            .result-item {
+                text-shadow: 0 0 20px rgba(0, 210, 255, 0.8);
+            }
+        }
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes borderPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes ultraRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes ultraShine {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+// Сетка кейсов
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+    
+    .case-card {
+        position: relative;
+        overflow: hidden;
+        padding: 30px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-8px);
+            
+            .case-glow {
+                opacity: 1;
+            }
+        }
+        
+        .case-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .case-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h3 {
+            color: white;
+            font-size: 22px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .case-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .case-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            
+            .case-item-tag {
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-size: 12px;
+                color: white;
+                transition: all 0.3s ease;
+                
+                &.more {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+            }
+        }
+        
+        .open-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            }
+            
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+// Таблица предметов
+.items-table {
+    padding: 25px;
+    
+    .table-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        
+        .table-icon {
+            font-size: 28px;
+        }
+        
+        h3 {
+            color: white;
+            font-size: 20px;
+        }
+    }
+    
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        
+        .rarity-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 15px;
+            
+            h4 {
+                margin-bottom: 12px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            
+            .rarity-items {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                
+                span {
+                    padding: 6px 12px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 20px;
+                    font-size: 13px;
+                    color: rgba(255, 255, 255, 0.8);
+                    transition: all 0.3s ease;
+                    
+                    &:hover {
+                        transform: translateY(-2px);
+                        filter: brightness(1.1);
+                    }
+                }
+            }
+            
+            &.ultra-section {
+                background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(58, 123, 213, 0.1));
+                border: 1px solid rgba(0, 210, 255, 0.3);
+                
+                .ultra-item {
+                    background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(58, 123, 213, 0.2));
+                    border: 1px solid rgba(0, 210, 255, 0.5);
+                    color: #00d2ff;
+                    text-shadow: 0 0 5px rgba(0, 210, 255, 0.5);
+                    animation: ultraItemPulse 2s infinite;
+                }
+            }
+        }
+    }
+}
+
+@keyframes ultraItemPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(0, 210, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+    }
+}
+
+// Сообщение
+.message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 28px;
+    border-radius: 60px;
+    font-size: 16px;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    &.success {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+        box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    &.error {
+        background: linear-gradient(135deg, #f44336, #d32f2f);
+        color: white;
+        box-shadow: 0 5px 20px rgba(244, 67, 54, 0.4);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+// Адаптив
+@media (max-width: 768px) {
+    .cases-page {
+        padding: 80px 15px 40px;
+    }
+    
+    .cases-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .result-popup .result-content {
+        padding: 25px;
+        
+        .result-icon {
+            font-size: 60px;
+        }
+        
+        h3 {
+            font-size: 24px;
+        }
+        
+        .result-item {
+            font-size: 20px;
+        }
+        
+        .result-win {
+            font-size: 18px;
+        }
+    }
+    
+    .balance-card {
+        padding: 12px 20px;
+        
+        .balance-value {
+            font-size: 28px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .cases-header .glow-text h1 {
+        font-size: 28px;
+    }
+    
+    .case-card {
+        padding: 20px 15px;
+        
+        .case-icon {
+            font-size: 48px;
+        }
+        
+        h3 {
+            font-size: 18px;
+        }
+        
+        .case-price {
+            font-size: 16px;
+        }
+    }
+    
+    .result-popup .result-content {
+        padding: 20px;
+        max-width: 90vw;
+        
+        .result-icon {
+            font-size: 48px;
+        }
+        
+        h3 {
+            font-size: 20px;
+        }
+    }
+}

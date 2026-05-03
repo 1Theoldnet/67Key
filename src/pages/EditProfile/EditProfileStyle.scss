@@ -1,0 +1,384 @@
+.edit-profile-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #0d0d1a 50%, #0a0a1a 100%);
+    padding: 100px 20px 60px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.auras {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    
+    .aura {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.3;
+        animation: float 20s infinite ease-in-out;
+        
+        &.aura-1 {
+            width: 500px;
+            height: 500px;
+            background: #ff3366;
+            top: -200px;
+            left: -200px;
+        }
+        
+        &.aura-2 {
+            width: 600px;
+            height: 600px;
+            background: #ff8c42;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+        
+        &.aura-3 {
+            width: 400px;
+            height: 400px;
+            background: #4facfe;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-50px, 50px) scale(0.9); }
+}
+
+.edit-profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    h1 {
+        font-size: 48px;
+        background: linear-gradient(135deg, #fff, #ff8c42, #ff3366);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 10px;
+        
+        @media (max-width: 550px) {
+            font-size: 32px;
+        }
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        border-color: rgba(255, 51, 102, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.profile-form {
+    padding: 30px;
+    margin-bottom: 30px;
+    
+    .form-group {
+        margin-bottom: 20px;
+        
+        label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            
+            &:focus {
+                outline: none;
+                border-color: #ff3366;
+                box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+            }
+        }
+        
+        &.avatar-group {
+            .avatar-preview {
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                
+                span {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12px;
+                }
+                
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 2px solid #ff3366;
+                }
+            }
+        }
+    }
+    
+    .account-info {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px 0;
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            .info-label {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 14px;
+            }
+            
+            .info-value {
+                color: #ffd700;
+                font-weight: bold;
+            }
+        }
+    }
+    
+    .form-buttons {
+        display: flex;
+        gap: 15px;
+        
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            &.save-btn {
+                background: linear-gradient(135deg, #ff3366, #ff8c42);
+                color: white;
+                
+                &:hover:not(:disabled) {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+                }
+            }
+            
+            &.cancel-btn {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+            }
+            
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+.danger-zone {
+    padding: 30px;
+    border-color: rgba(244, 67, 54, 0.5);
+    background: rgba(244, 67, 54, 0.05);
+    
+    h3 {
+        color: #ff5252;
+        margin-bottom: 10px;
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .delete-btn {
+        padding: 12px 24px;
+        background: rgba(244, 67, 54, 0.2);
+        border: 1px solid #ff5252;
+        border-radius: 40px;
+        color: #ff5252;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background: rgba(244, 67, 54, 0.4);
+            transform: translateY(-2px);
+        }
+    }
+    
+    .delete-confirm {
+        p {
+            color: #ff5252;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .confirm-buttons {
+            display: flex;
+            gap: 15px;
+            
+            button {
+                flex: 1;
+                padding: 12px;
+                border: none;
+                border-radius: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                
+                &.confirm-delete {
+                    background: linear-gradient(135deg, #f44336, #d32f2f);
+                    color: white;
+                    
+                    &:hover:not(:disabled) {
+                        transform: translateY(-2px);
+                        box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+                    }
+                }
+                
+                &.cancel-delete {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: white;
+                    
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.2);
+                    }
+                }
+                
+                &:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}
+
+.message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 28px;
+    border-radius: 60px;
+    font-size: 16px;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    &.success {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+        box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    &.error {
+        background: linear-gradient(135deg, #f44336, #d32f2f);
+        color: white;
+        box-shadow: 0 5px 20px rgba(244, 67, 54, 0.4);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.loading-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+    
+    .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #ff3366;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.7);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 550px) {
+    .profile-form {
+        padding: 20px;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+    }
+    
+    .confirm-buttons {
+        flex-direction: column;
+    }
+}

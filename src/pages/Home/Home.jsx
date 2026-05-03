@@ -133,11 +133,23 @@ export const Home = () => {
                             <p>Открывай кейсы с редкими предметами</p>
                             <span className="card-btn">Открыть →</span>
                         </Link>
+                        <Link to="/minesweeper" className="access-card">
+                            <div className="card-icon">💣</div>
+                            <h3>Сапёр</h3>
+                            <p>Испытай удачу в классической игре</p>
+                            <span className="card-btn">Играть →</span>
+                        </Link>
+                        <Link to="/clicker" className="access-card">
+                            <div className="card-icon">🖱️</div>
+                            <h3>Кликер</h3>
+                            <p>Зарабатывай монеты кликами</p>
+                            <span className="card-btn">Играть →</span>
+                        </Link>
                         <Link to="/promo-code" className="access-card">
                             <div className="card-icon">🎁</div>
                             <h3>Промокоды</h3>
                             <p>Активируй промокоды и получай бонусы</p>
-                            <span className="card-btn">Получить →</span>
+                            <span className="card-btn">Активировать →</span>
                         </Link>
                         <Link to="/transfer" className="access-card">
                             <div className="card-icon">💸</div>
@@ -145,21 +157,6 @@ export const Home = () => {
                             <p>Переводи монеты другим игрокам</p>
                             <span className="card-btn">Перевести →</span>
                         </Link>
-                    </div>
-                </div>
-
-                {/* Последние выигрыши */}
-                <div className="recent-wins">
-                    <h2>🔥 Последние выигрыши</h2>
-                    <div className="results-list">
-                        {lastResults.map((result, index) => (
-                            <div key={index} className={`result-item ${result.isWin ? 'win' : 'lose'}`}>
-                                <span className="result-symbol">{result.symbol}</span>
-                                <span className="result-status">
-                                    {result.isWin ? 'Выигрыш!' : 'Проигрыш'}
-                                </span>
-                            </div>
-                        ))}
                     </div>
                 </div>
 

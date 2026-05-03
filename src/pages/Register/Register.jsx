@@ -1,5 +1,5 @@
 import './RegisterStyles.scss'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
@@ -91,7 +91,7 @@ export const Register = () => {
             </form>
 
             <div style={{ position: 'fixed', left: 0, bottom: 0, color: 'white', padding: 15, fontSize: 20 }}>
-                У вас уже есть аккаунт? <a href='' style={{ color: 'white' }} onClick={() => nav('/login')}>Войти</a>
+                У вас уже есть аккаунт? <Link to='/login'>Войти</Link>
             </div>
         </div>
     )

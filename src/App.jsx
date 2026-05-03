@@ -9,6 +9,9 @@ import { Users } from './pages/Users/Users'
 import { Home } from './pages/Home/Home'
 import { TransferBalance } from './pages/TransferBalance/TransferBalance'
 import { Clicker } from './pages/Clicker/Clicker' // Правильный импорт
+import { Minesweeper } from './pages/Minesweeper/Minesweeper'
+import { Cases } from './pages/Cases/Cases'
+import { EditProfile } from './pages/EditProfile/EditProfile'
 
 const isAuthenticated = () => {
     const userIndex = localStorage.getItem('userIndex')
@@ -38,6 +41,9 @@ export const App = () => {
                 <Route path='/transfer' element={<PrivateRoute><TransferBalance /></PrivateRoute>} />
                 <Route path='/promo-code' element={<PrivateRoute><PromoCode /></PrivateRoute>} />
                 <Route path='/clicker' element={<PrivateRoute><Clicker /></PrivateRoute>} />
+                <Route path='/cases' element={<PrivateRoute><Cases /></PrivateRoute>} />
+                <Route path='/editprofile' element={<PrivateRoute><EditProfile /></PrivateRoute>} />
+                <Route path='/minesweeper' element={<PrivateRoute><Minesweeper /></PrivateRoute>} />
                 <Route path='/register' element={<PublicRoute><Register /></PublicRoute>} />
                 <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path='*' element={<NotFound />} />

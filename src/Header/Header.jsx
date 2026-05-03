@@ -9,6 +9,12 @@ export const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const menuRef = useRef(null)
 
+    // Функция для форматирования числа с пробелами
+    const formatBalance = (balance) => {
+        if (balance === undefined || balance === null) return '0'
+        return balance.toLocaleString('ru-RU').replace(/,/g, ' ')
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
             const userIndex = localStorage.getItem('userIndex')
@@ -21,7 +27,7 @@ export const Header = () => {
                     })
                     .catch(err => console.error(err))
             }
-        }, 3000) // Уменьшил частоту с 1 секунды до 3
+        }, 3000) // 3 секунды
 
         return () => clearInterval(interval)
     }, [])
@@ -67,6 +73,8 @@ export const Header = () => {
                 <nav className="nav-menu" ref={menuRef}>
                     <Link to="/clicker" className="nav-link" onClick={closeMobileMenu}>🖱️ Кликер</Link>
                     <Link to="/avtomat" className="nav-link" onClick={closeMobileMenu}>🎰 Автомат</Link>
+                    <Link to="/minesweeper" className="nav-link" onClick={closeMobileMenu}>💣 Сапёр</Link>
+                    <Link to="/cases" className="nav-link" onClick={closeMobileMenu}>🎲 Кейсы</Link>
                     <Link to="/transfer" className="nav-link" onClick={closeMobileMenu}>💸 Перевод</Link>
                     <Link to="/promo-code" className="nav-link" onClick={closeMobileMenu}>🎁 Промокоды</Link>
                     <Link to="/users" className="nav-link" onClick={closeMobileMenu}>👥 Пользователи</Link>
@@ -77,9 +85,9 @@ export const Header = () => {
                         <>
                             <div className="balance-display">
                                 <span className="balance-icon">💰</span>
-                                <span className="balance-value">{user.balance}</span>
+                                <span className="balance-value">{formatBalance(user.balance)}</span>
                             </div>
-                            <Link to="/edit-profile" className="profile-link">
+                            <Link to="/editprofile" className="profile-link">
                                 <div className="avatar">
                                     {user.avatarUrl ? <img src={user.avatarUrl} alt={user.name} /> : <span>👤</span>}
                                 </div>
@@ -87,12 +95,7 @@ export const Header = () => {
                             </Link>
                             <button onClick={logout} className="logout-btn">🚪 Выйти</button>
                         </>
-                    ) : (
-                        <div className="auth-buttons">
-                            <Link to="/login" className="login-btn">Войти</Link>
-                            <Link to="/register" className="register-btn">Регистрация</Link>
-                        </div>
-                    )}
+                    ) : null}
                 </div>
 
                 <div className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>

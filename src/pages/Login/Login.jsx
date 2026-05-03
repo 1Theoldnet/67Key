@@ -1,5 +1,5 @@
 import './LoginStyles.scss'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
@@ -90,7 +90,7 @@ export const Login = () => {
             </form>
 
             <div style={{ position: 'fixed', left: 0, bottom: 0, color: 'white', padding: 15, fontSize: 20 }}>
-                У вас нету аккаунта? <a href='' style={{ color: 'white' }} onClick={() => nav('/register')}>Регистрация</a>
+                У вас нету аккаунта? <Link to='/register'>Регистрация</Link>
             </div>
         </div>
     )
